@@ -1,3 +1,4 @@
+--test.adb
 with Ada.Text_IO;
 with Interfaces.C;
 with Zad_5;
@@ -15,17 +16,21 @@ procedure test is
 
     Solution_L, Solution_R : Diophantine_Solution;
 begin
-    Put_Line("loop:      " & N'Image & "! = " & Interfaces.C.unsigned_long'Image(wrapped_factorial_l(N)));
-    Put_Line("recursion: " & N'Image & "! = " & Interfaces.C.unsigned_long'Image(wrapped_factorial_r(N)));
+    Put_Line("loop:      " & N'Image & "! =" & Interfaces.C.unsigned_long'Image(wrapped_factorial_l(N)));
+    Put_Line("recursion: " & N'Image & "! =" & Interfaces.C.unsigned_long'Image(wrapped_factorial_r(N)));
 
-    Put_Line("loop:      GCD(" & A'Image & ", " & B'Image & ") = " & Interfaces.C.int'Image(wrapped_GCD_l(A,B)));
-    Put_Line("recursion: GCD(" & A'Image & ", " & B'Image & ") = " & Interfaces.C.int'Image(wrapped_GCD_r(A,B)));
+    Put_Line("-----------------------------------------------------------------");
+
+    Put_Line("loop:      GCD(" & A'Image & "," & B'Image & ") =" & Interfaces.C.int'Image(wrapped_GCD_l(A,B)));
+    Put_Line("recursion: GCD(" & A'Image & "," & B'Image & ") =" & Interfaces.C.int'Image(wrapped_GCD_r(A,B)));
+
+    Put_Line("-----------------------------------------------------------------");
 
     Solution_L := wrapped_diophantine_eq_l(Eq_A, Eq_B, Eq_C);
     Solution_R := wrapped_diophantine_eq_r(Eq_A, Eq_B, Eq_C);
-    Put_Line("loop:      Solution: " & Eq_A'Image & "x + " & Eq_B'Image & "y = " & Eq_C'Image & ":     x = " &
-        Interfaces.C.int'Image(Solution_L.X) & " + " & Interfaces.C.int'Image(Solution_L.XK) & "k, y = " & Interfaces.C.int'Image(Solution_L.Y) & " + " & Interfaces.C.int'Image(Solution_L.YK) & "k");
-    Put_Line("recursion: Solution: " & Eq_A'Image & "x + " & Eq_B'Image & "y = " & Eq_C'Image & ":     x = " &
-        Interfaces.C.int'Image(Solution_R.X) & " + " & Interfaces.C.int'Image(Solution_R.XK) & "k, y = " & Interfaces.C.int'Image(Solution_R.Y) & " + " & Interfaces.C.int'Image(Solution_R.YK) & "k");
+    Put_Line("loop:      Solution: " & Eq_A'Image & "x +" & Eq_B'Image & "y =" & Eq_C'Image & ":     x =" &
+        Interfaces.C.int'Image(Solution_L.X) & " +" & Interfaces.C.int'Image(Solution_L.XK) & "k, y = " & Interfaces.C.int'Image(Solution_L.Y) & " + " & Interfaces.C.int'Image(Solution_L.YK) & "k");
+    Put_Line("recursion: Solution: " & Eq_A'Image & "x +" & Eq_B'Image & "y =" & Eq_C'Image & ":     x =" &
+        Interfaces.C.int'Image(Solution_R.X) & " +" & Interfaces.C.int'Image(Solution_R.XK) & "k, y = " & Interfaces.C.int'Image(Solution_R.Y) & " + " & Interfaces.C.int'Image(Solution_R.YK) & "k");
 
 end test;

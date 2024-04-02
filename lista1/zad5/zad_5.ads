@@ -1,3 +1,4 @@
+--zad_5.ads
 with Interfaces.C;
 
 package Zad_5 is

@@ -1,9 +1,10 @@
+#zad_6.py
 from ctypes import CDLL, Structure, c_int, c_ulonglong, c_uint
 
 lib = CDLL('./libc_lib.so')
 
 class DiophantineSolution(Structure):
-	_fields_ = [("x", c_int), ("xk", c_int), ("y", c_int), ("yk", c_int)]
+	_fields_ = [("x", c_int), ("y", c_int), ("xk", c_int), ("yk", c_int)]
 
 factorialL = lib.factorialL
 factorialL.argtypes = [c_uint]

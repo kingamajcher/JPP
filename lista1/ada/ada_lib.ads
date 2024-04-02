@@ -1,5 +1,4 @@
 -- ada_lib.ads
--- Specification file
 
 package Ada_Lib is
 
