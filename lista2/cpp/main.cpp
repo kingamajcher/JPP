@@ -1,11 +1,11 @@
 #include <iostream>
-#include "GF.cpp"
+#include "GF.h"
 
 int main() {
-    GF<79> a(70);
-    GF<79> b(3);
-    GF<79> c(-30);
-    GF<79> result(0);
+    GF a(70);
+    GF b(1234588);
+    GF c(-30);
+    GF result(0);
 
     std::cout << "characteristic: " << result.characteristic() << std::endl;
 
@@ -30,4 +30,5 @@ int main() {
     std::cout << "Is a < b? " << std::boolalpha << (a < b) << std::endl;
     std::cout << "Is a > b? " << std::boolalpha << (a > b) << std::endl;
 
+    return 0;
 }

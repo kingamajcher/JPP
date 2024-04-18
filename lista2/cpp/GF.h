@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-const int PRIME_NUMBER = 79;
+const int PRIME_NUMBER = 1234577;
 
 class GF {
 private:
