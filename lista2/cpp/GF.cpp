@@ -1,5 +1,7 @@
 #include "GF.h"
 
+GF::GF() : value(0) {}
+
 GF::GF(int value) : value((value % PRIME_NUMBER + PRIME_NUMBER) % PRIME_NUMBER) {}
 
 int GF::characteristic() {
@@ -45,25 +47,26 @@ void GF::operator *=(const GF& other) {
 void GF::operator /=(const GF& other) {
     if (other.value == 0)
         throw std::invalid_argument("Division by zero");
-    int inv = 1;
-    int base = other.value;
-    int exponent = PRIME_NUMBER - 2;
+    *this *= other.inverse();
+}
+
+GF GF::inverse() const {
+    if (value == 0)
+        throw std::invalid_argument("Inverse of zero does not exist");
+
+    long long int base = value;
+    long long int exponent = PRIME_NUMBER - 2;
+    long long int result = 1;
     while (exponent > 0) {
         if (exponent % 2 == 1) {
-            inv = (inv * base) % PRIME_NUMBER;
+            result = (result * base) % PRIME_NUMBER;
         }
         base = (base * base) % PRIME_NUMBER;
         exponent /= 2;
     }
-
-    // Normalize the result to ensure it's positive
-    if (inv < 0) {
-        inv += PRIME_NUMBER;
-    }
-
-    // Perform the division
-    value = (static_cast<long long>(value) * inv) % PRIME_NUMBER;
+    return GF(static_cast<int>(result));
 }
+
 
 GF operator +(const GF& l, const GF& r) {
     GF result = l;

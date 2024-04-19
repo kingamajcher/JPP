@@ -2,6 +2,7 @@
 #define GF_H
 
 #include <iostream>
+#include <stdexcept>
 
 const int PRIME_NUMBER = 1234577;
 
@@ -10,6 +11,7 @@ private:
     int value;
 
 public:
+    GF();
     GF(int value);
 
     int characteristic();
@@ -33,6 +35,8 @@ public:
     void operator *=(const GF& other);
 
     void operator /=(const GF& other);
+
+    GF inverse() const;
 
     friend GF operator +(const GF& l, const GF& r);
 
