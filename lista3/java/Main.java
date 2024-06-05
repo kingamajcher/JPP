@@ -1,3 +1,5 @@
+// Main.java
+
 public class Main {
     public static void main(String[] args) {
         DHSetup dhSetup = new DHSetup();
@@ -14,7 +16,7 @@ public class Main {
         alice.setKey(bob.getPublicKey());
         bob.setKey(alice.getPublicKey());
 
-        GF message = new GF(1234); // Wiadomość do zaszyfrowania
+        GF message = new GF(12345);
 
         GF encrypted = alice.encrypt(message);
         System.out.println("Encrypted message: " + encrypted);

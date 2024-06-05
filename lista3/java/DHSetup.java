@@ -1,3 +1,5 @@
+// DHSetup.cpp
+
 import java.util.Random;
 
 class DHSetup {
@@ -27,7 +29,7 @@ class DHSetup {
         return true;
     }
 
-    public static boolean isPrime(long number) {
+    private static boolean isPrime(long number) {
         if (number <= 1) {
             return false;
         }

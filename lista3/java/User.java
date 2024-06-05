@@ -1,26 +1,30 @@
+// User.java
+
 import java.util.Random;
 
 public class User {
+
     private DHSetup dhSetup;
-    private GF secret;
+    
     private GF key;
-    private long secretValue = -1;
+    
+    private long secret = -1;
 
     public User(DHSetup dhSetup) {
         this.dhSetup = dhSetup;
         Random random = new Random();
-        secretValue = random.nextInt(GF.characteristic()) + 1;
+        secret = random.nextInt(GF.characteristic()) + 1;
     }
 
     public GF getPublicKey() {
-        return dhSetup.power(dhSetup.getGenerator(), secretValue);
+        return dhSetup.power(dhSetup.getGenerator(), secret);
     }
 
     public void setKey(GF a) {
-        if (secretValue == -1) {
+        if (secret == -1) {
             throw new IllegalStateException("Secret not initialized");
         }
-        this.key = dhSetup.power(a, secretValue);
+        this.key = dhSetup.power(a, secret);
     }
 
     public GF encrypt(GF m) {
