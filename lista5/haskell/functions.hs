@@ -1,4 +1,59 @@
+-- how to run:
+--   ghci functions.hs
+--   functionName arg1 arg2 ... argN
+
+-- list is [num1, num2, num3, ..., numN]
+
+-- how to quit:
+--   :q
+
 import Data.List
+
+-- helper function
+rowPascalsTriangle :: Int -> [Int]
+rowPascalsTriangle n
+  | n < 0 = [-1]
+  | n == 0 = [1]
+  |otherwise = zipWith (+) ([0] ++ rowPascalsTriangle (n - 1)) (rowPascalsTriangle (n - 1) ++ [0])
+
+
+merge :: Ord a => [a] -> [a] -> [a]
+merge [] ys = ys
+merge xs [] = xs
+merge (x:xs) (y:ys)
+  | x <= y    = x : merge xs (y:ys)
+  | otherwise = y : merge (x:xs) ys
+
+
+gcdExtended :: Int -> Int -> (Int, Int, Int) -- returns (gcd, x, y)
+gcdExtended 0 b = (b, 0, 1)
+gcdExtended a b =
+  let (gcd, x, y) = gcdExtended (b `mod` a) a
+   in (gcd, y - (b `div` a) * x, x)
+
+
+intSquareRoot :: Int -> Int
+intSquareRoot = floor . sqrt . fromIntegral
+
+
+isPrime :: Int -> Bool
+isPrime n
+  | n < 2 = False
+  | otherwise = null [ x | x <- [2 .. intSquareRoot n], n `mod` x == 0 ]
+
+
+smallestDivisor :: Int -> Int -> Int
+smallestDivisor n start = head [ x | x <- [start .. intSquareRoot n], n `mod` x == 0 ]
+
+
+factorize :: Int -> Int -> [Int]
+factorize n d
+  | n < 2           = []
+  | isPrime n       = [n]
+  | n `mod` d == 0  = d : factorize (n `div` d) d
+  | otherwise       = factorize n (smallestDivisor n (d + 1))
+
+
 
 -- 1. binomial n k -- faster
 binomial :: Int -> Int -> Int
@@ -53,55 +108,4 @@ primes :: Int -> [Int]
 primes n = [x | x <- [2 .. n], isPrime x]
 
 
--- additional functions used in implementation
-rowPascalsTriangle :: Int -> [Int]
-rowPascalsTriangle n
-  | n < 0 = [-1]
-  | n == 0 = [1]
-  |otherwise = zipWith (+) ([0] ++ rowPascalsTriangle (n - 1)) (rowPascalsTriangle (n - 1) ++ [0])
 
-
-merge :: Ord a => [a] -> [a] -> [a]
-merge [] ys = ys
-merge xs [] = xs
-merge (x:xs) (y:ys)
-  | x <= y    = x : merge xs (y:ys)
-  | otherwise = y : merge (x:xs) ys
-
-
-gcdExtended :: Int -> Int -> (Int, Int, Int) -- returns (gcd, x, y)
-gcdExtended 0 b = (b, 0, 1)
-gcdExtended a b =
-  let (gcd, x, y) = gcdExtended (b `mod` a) a
-   in (gcd, y - (b `div` a) * x, x)
-
-
-intSquareRoot :: Int -> Int
-intSquareRoot = floor . sqrt . fromIntegral
-
-
-isPrime :: Int -> Bool
-isPrime n
-  | n < 2 = False
-  | otherwise = null [ x | x <- [2 .. intSquareRoot n], n `mod` x == 0 ]
-
-
-smallestDivisor :: Int -> Int -> Int
-smallestDivisor n start = head [ x | x <- [start .. intSquareRoot n], n `mod` x == 0 ]
-
-
-factorize :: Int -> Int -> [Int]
-factorize n d
-  | n < 2           = []
-  | isPrime n       = [n]
-  | n `mod` d == 0  = d : factorize (n `div` d) d
-  | otherwise       = factorize n (smallestDivisor n (d + 1))
-
--- how to run:
---   ghci functions.hs
---   functionName arg1 arg2 ... argNbi
-
--- list is [num1, num2, num3, ..., numN]
-
--- how to quit:
---   :q
